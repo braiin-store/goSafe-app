@@ -6,14 +6,14 @@ import 'package:cupertino_tabbar/cupertino_tabbar.dart' as CupertinoTabBar;
 import 'package:app/src/widgets/forms.dart';
 import 'package:app/src/widgets/background.dart';
 
-class SignInPage extends StatefulWidget {
-  SignInPage({Key key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  LoginPage({Key key}) : super(key: key);
 
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _LoginPageState extends State<LoginPage> {
   int currentIndex = 0;
 
   int getIndex() => currentIndex;
@@ -26,11 +26,11 @@ class _SignInPageState extends State<SignInPage> {
       children: [
         Container(
           margin: EdgeInsets.only(bottom: 20, top: size.height / 7),
-          child: Image.asset('assets/owl.png', height: size.height / 3.5),
+          child: Image.asset('assets/owl.png', height: size.height / 4),
         ),
         Container(
           margin: EdgeInsets.symmetric(vertical: 20),
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 30),
           child: CupertinoTabBar.CupertinoTabBar(
             Color(0xff91bF19),
             Color(0xffEEEEEE),
@@ -60,7 +60,7 @@ class _SignInPageState extends State<SignInPage> {
         ),
         Container(
           width: size.width,
-          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          margin: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: Color(0xffEEEEEE),

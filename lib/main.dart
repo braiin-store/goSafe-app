@@ -4,7 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/src/pages/homePage.dart';
-import 'package:app/src/pages/signInPage.dart';
+import 'package:app/src/pages/loginPage.dart';
+import 'package:app/src/pages/enterPhonePage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,13 +40,17 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(size: 27, color: Color(0xff222222)),
         textTheme: TextTheme(
           button: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+          bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
           bodyText2: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          headline5: TextStyle(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.black),
+          headline4: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),
         ),
       ),
-      initialRoute: 'signIn',
+      initialRoute: 'phone',
       getPages: [
         GetPage(name: 'home', page: () => HomePage()),
-        GetPage(name: 'signIn', page: () => SignInPage()),
+        GetPage(name: 'login', page: () => LoginPage()),
+        GetPage(name: 'phone', page: () => EnterPhonePage()),
       ],
     );
   }

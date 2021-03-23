@@ -72,10 +72,11 @@ class SignInForm extends StatelessWidget {
         Padding(
           padding: EdgeInsets.fromLTRB(10, 5, 10, 13),
           child: InputForm(
+            hidden: true,
             label: 'Contraseña',
             iconData: Icons.lock_outline,
             onInput: (value) => print(value),
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.visiblePassword,
           ),
         ),
       ],
@@ -100,7 +101,7 @@ class SignUpForm extends StatelessWidget {
             label: 'Nombre',
             iconData: Icons.person_outline,
             onInput: (value) => print(value),
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.name,
           ),
         ),
         Padding(
@@ -119,7 +120,7 @@ class SignUpForm extends StatelessWidget {
             label: 'Contraseña',
             iconData: Icons.lock_outline,
             onInput: (value) => print(value),
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.visiblePassword,
           ),
         ),
         Padding(
@@ -129,7 +130,7 @@ class SignUpForm extends StatelessWidget {
             label: 'Confirmar Contraseña',
             iconData: Icons.lock_open_sharp,
             onInput: (value) => print(value),
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.text,
           ),
         ),
       ],
