@@ -24,7 +24,7 @@ class _MapViewState extends State<MapView> {
   _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
     final jsonStr = await rootBundle.loadString('assets/mapStyle.json');
-    mapController.setMapStyle(jsonStr);
+    await mapController.setMapStyle(jsonStr);
   }
 
   @override

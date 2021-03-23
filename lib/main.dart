@@ -1,3 +1,4 @@
+import 'package:app/src/pages/Map/mapScreen.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter/services.dart';
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
           headline6: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xff80AF08)),
         ),
       ),
-      initialRoute: 'finish',
+      // initialRoute: 'finish',
+      home: MapScreen(),
       getPages: [
         GetPage(name: 'home',     page: () => HomePage()),
         GetPage(name: 'login',    page: () => LoginPage()),

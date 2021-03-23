@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/src/widgets/background.dart';
@@ -17,6 +18,10 @@ class _HomePageState extends State<HomePage> {
         alignment: Alignment.center,
         children: [
           Background(),
+          Image.asset(
+            'assets/owl.png',
+            height: Get.size.height / 3,
+          ),
         ],
       ),
     );
