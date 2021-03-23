@@ -1,5 +1,9 @@
 PODS:
+  - block_input (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
+  - flutter_custom_dialog (0.0.1):
+    - Flutter
   - google_maps_flutter (0.0.1):
     - Flutter
     - GoogleMaps (< 3.10)
@@ -16,7 +20,9 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - block_input (from `.symlinks/plugins/block_input/ios`)
   - Flutter (from `Flutter`)
+  - flutter_custom_dialog (from `.symlinks/plugins/flutter_custom_dialog/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - libphonenumber (from `.symlinks/plugins/libphonenumber/ios`)
   - location (from `.symlinks/plugins/location/ios`)
@@ -27,8 +33,12 @@ SPEC REPOS:
     - libPhoneNumber-iOS
 
 EXTERNAL SOURCES:
+  block_input:
+    :path: ".symlinks/plugins/block_input/ios"
   Flutter:
     :path: Flutter
+  flutter_custom_dialog:
+    :path: ".symlinks/plugins/flutter_custom_dialog/ios"
   google_maps_flutter:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
   libphonenumber:
@@ -37,7 +47,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/location/ios"
 
 SPEC CHECKSUMS:
+  block_input: c71c429c311628db2049bb7f430d915e821a7aae
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
   google_maps_flutter: c7f9c73576de1fbe152a227bfd6e6c4ae8088619
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
   libphonenumber: bd14d5abfc5939ab0b0767234e2d8e2593af258e

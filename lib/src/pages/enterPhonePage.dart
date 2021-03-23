@@ -40,7 +40,7 @@ class _EnterPhonePageState extends State<EnterPhonePage> {
           ),
         ),
         Container(
-          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           child: InternationalPhoneNumberInput(
             keyboardType: TextInputType.phone,
             locale: 'es',
