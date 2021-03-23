@@ -7,6 +7,7 @@ import 'package:app/src/pages/homePage.dart';
 import 'package:app/src/pages/loginPage.dart';
 import 'package:app/src/pages/enterPhonePage.dart';
 import 'package:app/src/pages/confirmPhonePage.dart';
+import 'package:app/src/pages/finishRegisterPage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,12 +52,13 @@ class MyApp extends StatelessWidget {
           headline6: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xff80AF08)),
         ),
       ),
-      initialRoute: 'confirm',
+      initialRoute: 'finish',
       getPages: [
         GetPage(name: 'home',     page: () => HomePage()),
         GetPage(name: 'login',    page: () => LoginPage()),
         GetPage(name: 'phone',    page: () => EnterPhonePage()),
         GetPage(name: 'confirm',  page: () => ConfirmPhonePage()),
+        GetPage(name: 'finish',   page: () => FinishRegisterPage()),
       ],
     );
   }

@@ -137,3 +137,38 @@ class SignUpForm extends StatelessWidget {
     );
   }
 }
+
+class FinishForm extends StatelessWidget {
+  const FinishForm({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      textDirection: TextDirection.ltr,
+      textBaseline: TextBaseline.alphabetic,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 7, 10, 5),
+          child: InputForm(
+            label: 'Dirección Domiciliaria',
+            iconData: Icons.home_outlined,
+            onInput: (value) => print(value),
+            keyboardType: TextInputType.streetAddress,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 13),
+          child: InputForm(
+            hidden: true,
+            label: 'Contacto de Auxilio',
+            iconData: Icons.verified_user_outlined,
+            onInput: (value) => print(value),
+            keyboardType: TextInputType.number,
+          ),
+        ),
+      ],
+    );
+  }
+}
