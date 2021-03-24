@@ -1,12 +1,14 @@
-import 'dart:convert';
-
 import 'package:http/http.dart' as http;
+import 'package:get_storage/get_storage.dart';
+
 import 'package:app/src/env.dart' as env;
 import 'package:app/src/models/user.dart';
 
 class AuthApi {
   static final AuthApi _instance = AuthApi();
   static AuthApi get instance => _instance;
+
+  final box = GetStorage();
 
   Future<bool> signUp(User user) async {
     try {
@@ -15,14 +17,17 @@ class AuthApi {
         headers: {'Content-type': 'application/json'},
         body: user.toRawJson(),
       );
-      final data = json.decode(res.body);
-      if (data['error'] == null) {
+
+      if (res.statusCode != 500) {
+        user = User.fromRawJson(res.body);
+        await box.write('user', user.toRawJson());
+
         return true;
       }
     } catch (e) {
       print(e);
     }
-    return true;
+    return false;
   }
 
   Future<bool> signIn(User user) async {
@@ -35,6 +40,8 @@ class AuthApi {
 
       if (res.statusCode != 500) {
         user = User.fromRawJson(res.body);
+        await box.write('user', user.toRawJson());
+        
         return true;
       }
     } catch (e) {

@@ -18,6 +18,8 @@ PODS:
   - libPhoneNumber-iOS (0.9.15)
   - location (0.0.1):
     - Flutter
+  - path_provider (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - block_input (from `.symlinks/plugins/block_input/ios`)
@@ -26,6 +28,7 @@ DEPENDENCIES:
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - libphonenumber (from `.symlinks/plugins/libphonenumber/ios`)
   - location (from `.symlinks/plugins/location/ios`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
 
 SPEC REPOS:
   trunk:
@@ -45,6 +48,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/libphonenumber/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
 
 SPEC CHECKSUMS:
   block_input: c71c429c311628db2049bb7f430d915e821a7aae
@@ -55,6 +60,7 @@ SPEC CHECKSUMS:
   libphonenumber: bd14d5abfc5939ab0b0767234e2d8e2593af258e
   libPhoneNumber-iOS: 0a32a9525cf8744fe02c5206eb30d571e38f7d75
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +10,15 @@ import 'package:app/src/pages/enterPhonePage.dart';
 import 'package:app/src/pages/confirmPhonePage.dart';
 import 'package:app/src/pages/finishRegisterPage.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  await GetStorage.init();
 
   runApp(MyApp());
 }
@@ -52,7 +55,7 @@ class MyApp extends StatelessWidget {
           headline6: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xff80AF08)),
         ),
       ),
-      initialRoute: 'login',      
+      initialRoute: GetStorage().hasData('user') ? 'home': 'login',      
       getPages: [
         GetPage(name: 'home',     page: () => HomePage(), transition: Transition.rightToLeftWithFade, transitionDuration: Duration(milliseconds: 400)),
         GetPage(name: 'login',    page: () => LoginPage(), transition: Transition.upToDown, transitionDuration: Duration(seconds: 1)),
