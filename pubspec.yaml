@@ -26,6 +26,7 @@ dependencies:
   # dependencies
   get: ^3.26.0
   http: ^0.12.2
+  # get_storage: ^2.0.1
   asset_cache: ^1.0.0+1
   # widgets dependencies
   block_input: ^1.2.2

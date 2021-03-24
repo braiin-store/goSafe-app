@@ -1,4 +1,3 @@
-import 'package:app/src/pages/Map/mapScreen.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter/services.dart';
@@ -53,12 +52,11 @@ class MyApp extends StatelessWidget {
           headline6: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xff80AF08)),
         ),
       ),
-      // initialRoute: 'finish',
-      home: MapScreen(),
+      initialRoute: 'login',      
       getPages: [
-        GetPage(name: 'home',     page: () => HomePage()),
-        GetPage(name: 'login',    page: () => LoginPage()),
-        GetPage(name: 'phone',    page: () => EnterPhonePage()),
+        GetPage(name: 'home',     page: () => HomePage(), transition: Transition.rightToLeftWithFade, transitionDuration: Duration(milliseconds: 400)),
+        GetPage(name: 'login',    page: () => LoginPage(), transition: Transition.upToDown, transitionDuration: Duration(seconds: 1)),
+        GetPage(name: 'phone',    page: () => EnterPhonePage(), transition: Transition.cupertino, transitionDuration: Duration(milliseconds: 500)),
         GetPage(name: 'confirm',  page: () => ConfirmPhonePage()),
         GetPage(name: 'finish',   page: () => FinishRegisterPage()),
       ],

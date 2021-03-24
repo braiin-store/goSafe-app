@@ -5,14 +5,14 @@ import 'package:app/src/widgets/map.dart';
 import 'package:app/src/pages/Map/bottomSearch.dart';
 
 
-class MapScreen extends StatefulWidget {
-  MapScreen({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
 
   @override
-  _MapScreenState createState() => _MapScreenState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _HomePageState extends State<HomePage> {
   _onPressed() {
     showMaterialModalBottomSheet(
       enableDrag: true,
