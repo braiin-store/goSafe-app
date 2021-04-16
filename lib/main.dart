@@ -1,14 +1,11 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:app/src/pages/searchPage.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
-import 'package:app/src/pages/homePage.dart';
-import 'package:app/src/pages/loginPage.dart';
-import 'package:app/src/pages/enterPhonePage.dart';
-import 'package:app/src/pages/confirmPhonePage.dart';
-import 'package:app/src/pages/finishRegisterPage.dart';
+import 'package:app/src/config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +28,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(
         brightness: Brightness.light,
-        canvasColor: Color(0xff80AF08),
+        canvasColor: Colors.grey[100],
 
         buttonColor: Color(0xff222222),
         accentColor: Color(0xffD1D5DB),
@@ -44,25 +41,26 @@ class MyApp extends StatelessWidget {
 
         iconTheme: IconThemeData(size: 27, color: Color(0xff222222)),
         textTheme: TextTheme(
-          button: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
-          
-          bodyText2: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-          bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.grey),
-          
-          headline3: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
-          headline4: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),
-          headline5: TextStyle(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.black),
-          headline6: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xff80AF08)),
+            button: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+            
+            subtitle1: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black),
+            subtitle2: TextStyle(fontSize: 17, fontWeight: FontWeight.normal, color: Colors.grey),
+
+            bodyText2: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.grey),
+            
+            headline2: TextStyle(fontSize: 21, fontWeight: FontWeight.bold, color: Colors.white),
+            headline3: TextStyle(fontSize: 21, fontWeight: FontWeight.bold, color: Colors.black),
+            headline4: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),
+            headline5: TextStyle(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.black),
+            headline6: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xff80AF08),
+          ),
         ),
       ),
-      initialRoute: GetStorage().hasData('user') ? 'home': 'login',      
-      getPages: [
-        GetPage(name: 'home',     page: () => HomePage(), transition: Transition.rightToLeftWithFade, transitionDuration: Duration(milliseconds: 400)),
-        GetPage(name: 'login',    page: () => LoginPage(), transition: Transition.upToDown, transitionDuration: Duration(seconds: 1)),
-        GetPage(name: 'phone',    page: () => EnterPhonePage(), transition: Transition.cupertino, transitionDuration: Duration(milliseconds: 500)),
-        GetPage(name: 'confirm',  page: () => ConfirmPhonePage()),
-        GetPage(name: 'finish',   page: () => FinishRegisterPage()),
-      ],
+      
+      getPages: pages,
+      home: SearchPage(),
+      // initialRoute: Routes.home.toString(),
     );
   }
 }

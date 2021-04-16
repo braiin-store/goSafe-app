@@ -1,3 +1,4 @@
+import 'package:app/src/config.dart';
 import 'package:mapbox_api/mapbox_api.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -8,10 +9,7 @@ class Mapbox {
 
   final _polyline = PolylinePoints();
 
-  MapboxApi _mapboxApi = MapboxApi(
-    accessToken:
-        'pk.eyJ1IjoiZWxyb2lyIiwiYSI6ImNraWM4NXloZjB6bjAycG12MGIxMnd1NjkifQ.7rCNg1jNBd9v6RPTnY6cVQ',
-  );
+  MapboxApi _mapboxApi = MapboxApi(accessToken: API.MAPBOX_KEY);
 
   Future<List<LatLng>> getRouteFromCoords({
     LatLng source,
@@ -42,7 +40,10 @@ class Mapbox {
     return [];
   }
 
-  Future<List<GeocoderFeature>> getSuggestions({String search, LatLng point}) async {
+  Future<List<GeocoderFeature>> getSuggestions({
+    String search,
+    LatLng point,
+  }) async {
     try {
       final res = await _mapboxApi.forwardGeocoding.request(
         endpoint: GeocoderEndpoint.PLACES,
