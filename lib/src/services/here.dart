@@ -9,11 +9,12 @@ class Here {
   static Here get instance => _instance;
 
   Future<List<Place>> getSuggestions(String query) async {
+    if (query.isEmpty) return [];
     try {
       final res = await http.get(
         '${API.HERE_URL}?at=-17.7829,-63.1810&lang=es&apiKey=${API.HERE_KEY}&q=$query',
       );
-      
+
       List items = json.decode(res.body)['items'];
 
       return items.map((item) => Place.fromJson(item)).toList();

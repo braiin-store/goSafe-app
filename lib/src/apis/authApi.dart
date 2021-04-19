@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:get_storage/get_storage.dart';
 
-import 'package:app/src/env.dart' as env;
+import 'package:app/src/config.dart' as env;
 import 'package:app/src/models/user.dart';
 
 class AuthApi {

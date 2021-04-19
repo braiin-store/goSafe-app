@@ -3,7 +3,7 @@
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-  
+
   <!-- Google APIKEY -->
   <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBg3rjTI473PP-T5AdWYb0Exj_7mqsYuqM" />
 

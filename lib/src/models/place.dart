@@ -26,27 +26,28 @@ class Place {
 
   factory Place.fromJson(Map<String, dynamic> json) {
     return Place(
-      id        : json["id"],
-      title     : json["title"],
-      distance  : json["distance"],
+      id: json["id"],
+      title: json["title"],
+      distance: json["distance"],
       resultType: json["resultType"],
-      
-      address   : Address.fromJson(json["address"]),
-      mapView   : json['mapView'] == null ? null : MapView.fromJson(json["mapView"]),
-      position  : Position.fromJson(json["position"]),
+      address:
+          json['address'] == null ? null : Address.fromJson(json["address"]),
+      mapView:
+          json['mapView'] == null ? null : MapView.fromJson(json["mapView"]),
+      position:
+          json['position'] == null ? null : Position.fromJson(json["position"]),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "id"        : id,
-      "title"     : title,
-      "distance"  : distance,
+      "id": id,
+      "title": title,
+      "distance": distance,
       "resultType": resultType,
-
-      "address"   : address.toJson(),
-      "mapView"   : mapView.toJson(),
-      "position"  : position.toJson(),
+      "address": address?.toJson(),
+      "mapView": mapView?.toJson(),
+      "position": position?.toJson(),
     };
   }
 }
@@ -86,19 +87,19 @@ class MapView {
 
   factory MapView.fromJson(Map<String, dynamic> json) {
     return MapView(
-      west  : json["west"].toDouble() ?? 0,
-      east  : json["east"].toDouble(),
-      south : json["south"].toDouble(),
-      north : json["north"].toDouble(),
+      west: json["west"].toDouble(),
+      east: json["east"].toDouble(),
+      south: json["south"].toDouble(),
+      north: json["north"].toDouble(),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "west"  : west,
-      "east"  : east,
-      "south" : south,
-      "north" : north,
+      "west": west,
+      "east": east,
+      "south": south,
+      "north": north,
     };
   }
 }
@@ -118,13 +119,18 @@ class Position {
 
   String toRawJson() => json.encode(toJson());
 
-  factory Position.fromJson(Map<String, dynamic> json) => Position(
-        lat: json["lat"].toDouble(),
-        lng: json["lng"].toDouble(),
-      );
+  factory Position.fromJson(Map<String, dynamic> json) {
+    return Position(
+      lat: json["lat"].toDouble(),
+      lng: json["lng"].toDouble(),
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "lat": lat,
-        "lng": lng,
-      };
+  Object toJson() {
+    return <double>[lat, lng];
+    // return {
+    //   "lat": lat,
+    //   "lng": lng,
+    // };
+  }
 }

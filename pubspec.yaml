@@ -27,7 +27,7 @@ dependencies:
   get: ^3.26.0
   http: ^0.12.2
   get_storage: ^1.4.0
-  asset_cache: ^1.0.0+1
+  image_picker: 0.6.2+3
   # widgets dependencies
   block_input: ^1.2.2
   cupertino_tabbar: ^1.1.1
@@ -37,6 +37,7 @@ dependencies:
   location: ^2.5.4
   mapbox_api: ^0.2.3
   google_maps_flutter: ^2.0.1
+  here_maps_webservice: ^1.0.3
   flutter_polyline_points: ^0.2.4
 
   # The following adds the Cupertino Icons font to your application.

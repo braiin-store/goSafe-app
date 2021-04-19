@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:app/src/pages/searchPage.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +15,7 @@ void main() async {
   ]);
 
   await GetStorage.init();
+
 
   runApp(MyApp());
 }
@@ -59,8 +59,8 @@ class MyApp extends StatelessWidget {
       ),
       
       getPages: pages,
-      home: SearchPage(),
-      // initialRoute: Routes.home.toString(),
+      // home: SearchPage(),
+      initialRoute: Routes.home.toString(),
     );
   }
 }

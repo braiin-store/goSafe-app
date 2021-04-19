@@ -1,11 +1,12 @@
-import 'package:app/src/apis/authApi.dart';
 import 'package:get/get.dart';
+import 'package:cupertino_tabbar/cupertino_tabbar.dart' as CupertinoTabBar;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:cupertino_tabbar/cupertino_tabbar.dart' as CupertinoTabBar;
-
 import 'package:app/src/models/user.dart';
+import 'package:app/src/apis/authApi.dart';
+
 import 'package:app/src/widgets/forms.dart';
 import 'package:app/src/widgets/background.dart';
 

@@ -1,10 +1,11 @@
-import 'package:block_input/block_input_controller.dart';
-import 'package:block_input/block_input_keyboard_type.dart';
-import 'package:block_input/block_input_style.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:block_input/block_input.dart';
+import 'package:block_input/block_input_style.dart';
+import 'package:block_input/block_input_controller.dart';
+import 'package:block_input/block_input_keyboard_type.dart';
+
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class ConfirmPhonePage extends StatefulWidget {
