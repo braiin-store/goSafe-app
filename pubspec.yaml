@@ -33,11 +33,12 @@ dependencies:
   cupertino_tabbar: ^1.1.1
   modal_bottom_sheet: ^2.0.0
   intl_phone_number_input: ^0.6.0
+  # firebase dependencies
+  firebase_database: ^6.0.0
   # maps dependencies
   location: ^2.5.4
   mapbox_api: ^0.2.3
-  google_maps_flutter: ^2.0.1
-  here_maps_webservice: ^1.0.3
+  google_maps_flutter: ^2.0.3
   flutter_polyline_points: ^0.2.4
 
   # The following adds the Cupertino Icons font to your application.

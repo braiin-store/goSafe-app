@@ -54,6 +54,7 @@ class _SearchPageState extends State<SearchPage> {
           destiny: position,
           destinyName: place.address.label,
         );
+        
         Get.back(result: controller.destinyName);
       } else {
         controller.updateTravel(

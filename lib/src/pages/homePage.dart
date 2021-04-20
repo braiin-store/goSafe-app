@@ -5,6 +5,7 @@ import 'package:app/src/widgets/map.dart';
 import 'package:app/src/widgets/drawer.dart';
 import 'package:app/src/widgets/bottomSheet.dart';
 
+import 'package:app/src/services/getMap.dart';
 import 'package:app/src/services/getTravel.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,17 +17,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = Get.put(GetTravelController());
+  final mapController = Get.put(GetMapController());
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool showMarker = false;
 
   @override
   void initState() {
-    controller.clear();
     super.initState();
+    controller.clear();
+    this.controller.addListener(() {
+      if (controller.travel.id != null) {
+        setState(() => showMarker = true);
+      }
+    });
   }
 
   @override
   void dispose() {
     controller.dispose();
+    mapController.dispose();
     super.dispose();
   }
 
@@ -37,13 +47,13 @@ class _HomePageState extends State<HomePage> {
       drawer: CustomDrawer(),
       body: Stack(
         children: [
-          Positioned.fill(child: MapView()),
-
+          Container(child: MapView()),
           Positioned(
             top: 25,
             left: 20,
             child: cornerButton(iconData: Icons.menu),
           ),
+          showMarker ? marker() : Container(),
           Positioned(
             top: 25,
             right: 20,
@@ -51,6 +61,18 @@ class _HomePageState extends State<HomePage> {
               tag: 'alert',
               iconData: Icons.taxi_alert,
               onPressed: () => print('ALERT'),
+            ),
+          ),
+          Positioned(
+            top: 100,
+            right: 20,
+            child: cornerButton(
+              tag: 'location',
+              iconData: Icons.location_searching,
+              onPressed: () async {
+                await this.mapController.getLocationCamera();
+                setState(() {});
+              },
             ),
           ),
           RequestBottomSheet(),
@@ -65,6 +87,19 @@ class _HomePageState extends State<HomePage> {
       child: Icon(iconData, color: Color(0xff80AF08)),
       backgroundColor: Colors.white,
       onPressed: onPressed ?? () => _scaffoldKey.currentState.openDrawer(),
+    );
+  }
+
+  Widget marker() {
+    return Transform.translate(
+      offset: Offset(0, -8),
+      child: Center(
+        child: Icon(
+          Icons.location_pin,
+          color: Colors.black,
+          size: 35,
+        ),
+      ),
     );
   }
 }

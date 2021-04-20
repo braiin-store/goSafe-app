@@ -19,12 +19,16 @@ class GetTravelController extends GetxController {
   }
 
   updateTravel({
+    int id,
     double amount,
     LatLng source,
     LatLng destiny,
     String sourceName,
     String destinyName,
   }) {
+    if (id != null) {
+      this._travel.id = id;
+    }
     if (amount != null) {
       this._travel.amount = amount;
     }

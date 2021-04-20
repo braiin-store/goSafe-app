@@ -1,5 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.app">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.brainstore.gosafe">
+    <!-- <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAvShm5M1obO0GJI7jiybyHZhSumYlGDx4" /> -->
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->

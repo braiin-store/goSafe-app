@@ -1,4 +1,5 @@
 import 'package:app/src/config.dart';
+
 import 'package:mapbox_api/mapbox_api.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -23,8 +24,8 @@ class Mapbox {
         profile: NavigationProfile.DRIVING,
         geometries: NavigationGeometries.POLYLINE,
         coordinates: [
-          [source.latitude, source.longitude],
-          [destiny.latitude, destiny.longitude],
+          source.toJson(),
+          destiny.toJson(),
         ],
       );
 

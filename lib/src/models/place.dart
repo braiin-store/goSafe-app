@@ -4,6 +4,7 @@ class Place {
   Place({
     this.id,
     this.title,
+    this.destiny,
     this.address,
     this.mapView,
     this.position,
@@ -11,6 +12,8 @@ class Place {
     this.resultType,
   });
 
+  bool destiny;
+  
   String id;
   String title;
   String resultType;
@@ -26,16 +29,13 @@ class Place {
 
   factory Place.fromJson(Map<String, dynamic> json) {
     return Place(
-      id: json["id"],
-      title: json["title"],
-      distance: json["distance"],
-      resultType: json["resultType"],
-      address:
-          json['address'] == null ? null : Address.fromJson(json["address"]),
-      mapView:
-          json['mapView'] == null ? null : MapView.fromJson(json["mapView"]),
-      position:
-          json['position'] == null ? null : Position.fromJson(json["position"]),
+      id          : json["id"],
+      title       : json["title"],
+      distance    : json["distance"],
+      resultType  : json["resultType"],
+      address     : json['address'] == null ? null : Address.fromJson(json["address"]),
+      mapView     : json['mapView'] == null ? null : MapView.fromJson(json["mapView"]),
+      position    : json['position'] == null ? null : Position.fromJson(json["position"]),
     );
   }
 
@@ -119,7 +119,14 @@ class Position {
 
   String toRawJson() => json.encode(toJson());
 
-  factory Position.fromJson(Map<String, dynamic> json) {
+  factory Position.fromJson(json) {
+    if (json is List) {
+      return Position(
+        lat: json.first,
+        lng: json.last,
+      );
+    }
+
     return Position(
       lat: json["lat"].toDouble(),
       lng: json["lng"].toDouble(),

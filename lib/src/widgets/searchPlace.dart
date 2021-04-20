@@ -6,7 +6,10 @@ import 'package:app/src/models/place.dart';
 import 'package:app/src/services/here.dart';
 
 class SearchPlace extends SearchDelegate<Place> {
+  final bool destiny;
   final box = GetStorage();
+
+  SearchPlace([this.destiny = false]);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -53,10 +56,11 @@ class SearchPlace extends SearchDelegate<Place> {
         return ListView(
           children: snap.data.map((place) {
             return _buildListTile(place, iconData: Icons.map, onTap: () async {
+              final jsonStr = place.toRawJson();
               final history = this.box.read<List>('history') ?? [];
 
-              if (!history.contains(place.toRawJson())) {
-                history.insert(0, place.toRawJson());
+              if (!history.contains(jsonStr)) {
+                history.insert(0, jsonStr);
               }
 
               await this.box.write('history', history);
@@ -77,7 +81,7 @@ class SearchPlace extends SearchDelegate<Place> {
           'Marcar en el Mapa',
           style: TextStyle(color: Colors.green),
         ),
-        onTap: () => this.close(context, Place(id: 'marker')),
+        onTap: () => this.close(context, Place(id: 'marker', destiny: destiny)),
       )
     ];
 

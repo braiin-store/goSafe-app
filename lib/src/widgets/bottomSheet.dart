@@ -28,7 +28,7 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Container(height: 2, width: Get.width / 6, color: Colors.white),
+      child: Container(height: 4, width: Get.width / 6, color: Colors.white),
     );
   }
 
@@ -41,6 +41,7 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
       child: TextFormField(
+        readOnly: onTap != null,
         controller: controller,
         onTap: onTap,
         style: TextStyle(fontSize: 18, color: Colors.grey),
@@ -58,7 +59,7 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
   Widget build(BuildContext context) {
     return NotificationListener<DraggableScrollableNotification>(
       onNotification: (notification) {
-        print(notification.extent);
+        // print(notification.extent);
         return true;
       },
       child: DraggableScrollableSheet(
@@ -85,12 +86,7 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
 
                     if (place == null) return;
                     if (place.id == 'marker') {
-                      print("MUST SHOW MARKER ON MAP");
-                      await scrollController.animateTo(
-                        5,
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.ease,
-                      );
+                      this.controller.updateTravel(id: place.destiny ? 1 : 0);
                     } else {
                       controller.updateTravel(
                         sourceName: place.address.label,
@@ -111,7 +107,7 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
                     );
                     if (place == null) return;
                     if (place.id == 'marker') {
-                      print('MUST SHOW MARKER ON MAP');
+                      this.controller.updateTravel(id: place.destiny ? 1 : 0);
                     } else {
                       controller.updateTravel(
                         destinyName: place.address.label,

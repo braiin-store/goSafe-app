@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:app/src/services/mapbox.dart';
+import 'package:app/src/services/getMap.dart';
 import 'package:app/src/services/getTravel.dart';
 
 class MapView extends StatefulWidget {
@@ -17,26 +16,24 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
-  final _location = Location();
   final controller = Get.find<GetTravelController>();
+  final mapController = Get.find<GetMapController>();
 
   final Set<Marker> markers = Set.from([]);
   final Set<Polyline> polylines = Set.from([]);
 
-  GoogleMapController mapController;
-
   @override
   void initState() {
     super.initState();
-    _location.requestPermission().then((status) => print(status));
+    mapController.location.requestPermission().then((value) => null);
+
     controller.addListener(() async {
-      int drawroute = 0;
       if (controller.travel.source != null) {
         markers.add(Marker(
           markerId: MarkerId('source'),
           position: controller.travel.source,
         ));
-        setState(() => print(drawroute++));
+        setState(() => print(controller.travel.source));
       }
 
       if (controller.travel.destiny != null) {
@@ -44,10 +41,10 @@ class _MapViewState extends State<MapView> {
           markerId: MarkerId('destiny'),
           position: controller.travel.destiny,
         ));
-        setState(() => print(drawroute++));
+        setState(() => print(controller.travel.destiny));
       }
 
-      if (drawroute == 2) {
+      if (markers.length == 2) {
         final routePoints = await Mapbox.instance.getRouteFromCoords(
           source: controller.travel.source,
           destiny: controller.travel.destiny,
@@ -61,36 +58,29 @@ class _MapViewState extends State<MapView> {
           ),
         );
 
-        setState(() => print(drawroute = 0));
+        setState(() => print(routePoints.length));
       }
     });
-  }
-
-  _onMapCreated(GoogleMapController controller) async {
-    mapController = controller;
-    final jsonStr = await rootBundle.loadString('assets/mapStyle.json');
-    await mapController.setMapStyle(jsonStr);
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<LocationData>(
-      stream: _location.onLocationChanged(),
+      stream: mapController.location.onLocationChanged(),
       builder: (context, snap) {
         if (!snap.hasData) {
-          return Container(
-            child: Center(child: CircularProgressIndicator.adaptive()),
-          );
+          return Center(child: CircularProgressIndicator.adaptive());
         }
-
+        mapController.setCurrentPosition(snap.data);
         return GoogleMap(
-          buildingsEnabled: false,
-          myLocationEnabled: true,
-          mapToolbarEnabled: true,
-
+          // buildingsEnabled: false,
+          // myLocationEnabled: true,
+          mapToolbarEnabled: false,
+          zoomControlsEnabled: false,
+                    
           markers: markers,
           polylines: polylines,
-          onMapCreated: _onMapCreated,
+          onMapCreated: mapController.onMapCreated,
 
           initialCameraPosition: CameraPosition(
             zoom: 15,
