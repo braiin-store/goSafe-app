@@ -1,38 +1,32 @@
 import 'package:get/get.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:app/src/services/getTravel.dart';
 import 'package:app/src/widgets/searchPlace.dart';
 
-class RequestBottomSheet extends StatefulWidget {
-  RequestBottomSheet({Key key}) : super(key: key);
-
-  @override
-  _RequestBottomSheetState createState() => _RequestBottomSheetState();
-}
-
-class _RequestBottomSheetState extends State<RequestBottomSheet> {
+class RequestBottomSheet extends StatelessWidget {
   final sourceController = TextEditingController();
   final destinyController = TextEditingController();
-  final controller = Get.find<GetTravelController>();
 
-  Widget _drawerHeader() {
-    return Container(
-      height: 35,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: Color(0xff80AF08),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      child: Container(height: 4, width: Get.width / 6, color: Colors.white),
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<GetTravelController>(
+      dispose: (state) {
+        sourceController.dispose();
+        destinyController.dispose();
+      },
+      builder: (controller) {
+        if (controller.showMarker) {
+          return buildMarker(controller);
+        }
+        return buildBottomSheet(context, controller);
+      },
     );
   }
 
-  Widget _requestField({
+  Widget requestField({
     Function onTap,
     String hintText,
     IconData iconData,
@@ -55,88 +49,134 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return NotificationListener<DraggableScrollableNotification>(
-      onNotification: (notification) {
-        // print(notification.extent);
-        return true;
-      },
-      child: DraggableScrollableSheet(
-        minChildSize: .035,
-        maxChildSize: .5,
-        initialChildSize: .2,
-        builder: (sheetContext, scrollController) {
-          return Material(
-            borderRadius: BorderRadius.circular(20),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              controller: scrollController,
-              children: [
-                _drawerHeader(),
-                _requestField(
-                  hintText: 'Mi Ubicación',
-                  iconData: Icons.push_pin,
-                  controller: sourceController,
-                  onTap: () async {
-                    final place = await showSearch(
-                      context: context,
-                      delegate: SearchPlace(),
-                    );
-
-                    if (place == null) return;
-                    if (place.id == 'marker') {
-                      this.controller.updateTravel(id: place.destiny ? 1 : 0);
-                    } else {
-                      controller.updateTravel(
-                        sourceName: place.address.label,
-                        source: LatLng.fromJson(place.position.toJson()),
-                      );
-                      this.sourceController.text = place.address.label;
-                    }
-                  },
-                ),
-                _requestField(
-                  hintText: 'Destino',
-                  iconData: Icons.flag,
-                  controller: destinyController,
-                  onTap: () async {
-                    final place = await showSearch(
-                      context: context,
-                      delegate: SearchPlace(),
-                    );
-                    if (place == null) return;
-                    if (place.id == 'marker') {
-                      this.controller.updateTravel(id: place.destiny ? 1 : 0);
-                    } else {
-                      controller.updateTravel(
-                        destinyName: place.address.label,
-                        destiny: LatLng.fromJson(place.position.toJson()),
-                      );
-                      this.destinyController.text = place.address.label;
-                    }
-                  },
-                ),
-                _requestField(
-                  iconData: Icons.attach_money,
-                  hintText: 'Ofrezca su Tarifa',
-                ),
-                _requestField(
-                  iconData: Icons.chat,
-                  hintText: 'Comentarios y deseos',
-                ),
-              ],
+  Widget buildMarker(GetTravelController controller) {
+    return Stack(
+      children: [
+        Transform.translate(
+          offset: Offset(0, -8),
+          child: Center(child: Icon(Icons.location_pin, size: 35)),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 40),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: MaterialButton(
+              elevation: 1,
+              color: Colors.green,
+              padding: EdgeInsets.all(12),
+              child: Text(
+                'Seleccionar Ubicación',
+                style: Get.textTheme.headline2,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              onPressed: () {
+                controller.changeMarker(selectLocation: true).then((value) {
+                  if (value) {
+                    this.sourceController.text = controller.sourceName;
+                  } else {
+                    this.destinyController.text = controller.destinyName;
+                  }
+                });
+              },
             ),
-          );
-        },
-      ),
+          ),
+        ),
+      ],
     );
   }
 
-  @override
-  void dispose() {
-    this.sourceController.dispose();
-    this.destinyController.dispose();
-    super.dispose();
+  Widget buildBottomSheet(
+    BuildContext context,
+    GetTravelController controller,
+  ) {
+    return DraggableScrollableSheet(
+      minChildSize: .035,
+      maxChildSize: .5,
+      initialChildSize: .2,
+      builder: (sheetContext, scrollController) {
+        return Material(
+          borderRadius: BorderRadius.circular(20),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            controller: scrollController,
+            children: [
+              Container(
+                height: 35,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Color(0xff80AF08),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: Container(
+                  height: 4,
+                  width: Get.width / 6,
+                  color: Colors.white,
+                ),
+              ),
+              requestField(
+                hintText: 'Mi Ubicación',
+                iconData: Icons.push_pin,
+                controller: sourceController,
+                onTap: () async {
+                  final place = await showSearch(
+                    context: context,
+                    delegate: SearchPlace(),
+                  );
+
+                  if (place == null) return;
+                  if (place.id == 'marker') {
+                    await controller.changeMarker(
+                      markerType: MarkerType.source,
+                    );
+                  } else {
+                    controller.updateTravel(
+                      sourceName: place.address.label,
+                      source: LatLng.fromJson(place.position.toJson()),
+                    );
+                    this.sourceController.text = place.address.label;
+                  }
+                },
+              ),
+              requestField(
+                hintText: 'Destino',
+                iconData: Icons.flag,
+                controller: destinyController,
+                onTap: () async {
+                  final place = await showSearch(
+                    context: context,
+                    delegate: SearchPlace(),
+                  );
+                  if (place == null) return;
+                  if (place.id == 'marker') {
+                    await controller.changeMarker(
+                      markerType: MarkerType.destiny,
+                    );
+                  } else {
+                    controller.updateTravel(
+                      destinyName: place.address.label,
+                      destiny: LatLng.fromJson(place.position.toJson()),
+                    );
+                    this.destinyController.text = place.address.label;
+                  }
+                },
+              ),
+              requestField(
+                iconData: Icons.attach_money,
+                hintText: 'Ofrezca su Tarifa',
+              ),
+              requestField(
+                iconData: Icons.chat,
+                hintText: 'Comentarios y deseos',
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

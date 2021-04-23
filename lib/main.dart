@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -46,10 +45,8 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           bodyText1: TextStyle(
               fontSize: 15, fontWeight: FontWeight.w500, color: Colors.grey),
-          headline2: TextStyle(
-              fontSize: 21, fontWeight: FontWeight.bold, color: Colors.white),
-          headline3: TextStyle(
-              fontSize: 21, fontWeight: FontWeight.bold, color: Colors.black),
+          headline2: TextStyle(fontSize: 21, fontWeight: FontWeight.bold, color: Colors.white),
+          headline3: TextStyle(fontSize: 21, fontWeight: FontWeight.bold, color: Colors.black),
           headline4: TextStyle(
               fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),
           headline5: TextStyle(

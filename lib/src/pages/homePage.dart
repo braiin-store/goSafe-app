@@ -26,11 +26,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     controller.clear();
-    this.controller.addListener(() {
-      if (controller.travel.id != null) {
-        setState(() => showMarker = true);
-      }
-    });
   }
 
   @override
@@ -47,13 +42,12 @@ class _HomePageState extends State<HomePage> {
       drawer: CustomDrawer(),
       body: Stack(
         children: [
-          Container(child: MapView()),
+          MapView(),
           Positioned(
             top: 25,
             left: 20,
             child: cornerButton(iconData: Icons.menu),
           ),
-          showMarker ? marker() : Container(),
           Positioned(
             top: 25,
             right: 20,
@@ -64,14 +58,13 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-            top: 100,
-            right: 20,
+            bottom: 45,
+            right: 10,
             child: cornerButton(
               tag: 'location',
               iconData: Icons.location_searching,
               onPressed: () async {
                 await this.mapController.getLocationCamera();
-                setState(() {});
               },
             ),
           ),
@@ -87,19 +80,6 @@ class _HomePageState extends State<HomePage> {
       child: Icon(iconData, color: Color(0xff80AF08)),
       backgroundColor: Colors.white,
       onPressed: onPressed ?? () => _scaffoldKey.currentState.openDrawer(),
-    );
-  }
-
-  Widget marker() {
-    return Transform.translate(
-      offset: Offset(0, -8),
-      child: Center(
-        child: Icon(
-          Icons.location_pin,
-          color: Colors.black,
-          size: 35,
-        ),
-      ),
     );
   }
 }

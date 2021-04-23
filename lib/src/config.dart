@@ -14,6 +14,7 @@ class API {
   // VIRTUAL IOS     http://localhost:8000/api
   static const URL = "http://localhost:3000/api";
   static const HERE_URL = "https://autosuggest.search.hereapi.com/v1/autosuggest";
+  static const HERE_REV_URL = "https://revgeocode.search.hereapi.com/v1/revgeocode";
 
   static const HERE_KEY = "sSce-1bGwzasrYDmDVkrHVRdINGO4W_nvOOr3v1JdRY";
   static const MAPBOX_KEY = "pk.eyJ1IjoiZWxyb2lyIiwiYSI6ImNraWM4NXloZjB6bjAycG12MGIxMnd1NjkifQ.7rCNg1jNBd9v6RPTnY6cVQ";
