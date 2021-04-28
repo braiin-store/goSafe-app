@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:app/src/pages/homePage.dart';
 import 'package:app/src/pages/loginPage.dart';
@@ -20,6 +21,8 @@ class API {
   static const MAPBOX_KEY = "pk.eyJ1IjoiZWxyb2lyIiwiYSI6ImNraWM4NXloZjB6bjAycG12MGIxMnd1NjkifQ.7rCNg1jNBd9v6RPTnY6cVQ";
 }
 
+final box = GetStorage();
+
 enum Routes {
   home,
   phone,
@@ -29,9 +32,9 @@ enum Routes {
 }
 
 final pages = [
-  GetPage(name: Routes.home.toString(),     page: () => HomePage()),
-  GetPage(name: Routes.login.toString(),    page: () => LoginPage()),
-  GetPage(name: Routes.phone.toString(),    page: () => EnterPhonePage()),
-  GetPage(name: Routes.confirm.toString(),  page: () => ConfirmPhonePage()),
-  GetPage(name: Routes.finish.toString(),   page: () => FinishRegisterPage()),
+  GetPage(name: Routes.home.toString(), page: () => HomePage()),
+  GetPage(name: Routes.login.toString(), page: () => LoginPage()),
+  GetPage(name: Routes.phone.toString(), page: () => EnterPhonePage()),
+  GetPage(name: Routes.confirm.toString(), page: () => ConfirmPhonePage()),
+  GetPage(name: Routes.finish.toString(), page: () => FinishRegisterPage()),
 ];

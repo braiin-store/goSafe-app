@@ -1,46 +1,38 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-import 'package:block_input/block_input.dart';
-import 'package:block_input/block_input_style.dart';
-import 'package:block_input/block_input_controller.dart';
-import 'package:block_input/block_input_keyboard_type.dart';
+import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import '../config.dart';
 
-class ConfirmPhonePage extends StatefulWidget {
-  final PhoneNumber phoneNumber;
-  ConfirmPhonePage({Key key, this.phoneNumber}) : super(key: key);
+import 'package:app/src/services/getPhone.dart';
 
-  @override
-  _ConfirmPhonePageState createState() => _ConfirmPhonePageState();
-}
-
-class _ConfirmPhonePageState extends State<ConfirmPhonePage> {
+class ConfirmPhonePage extends GetView<GetPhoneController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      body: Center(child: _enterPhone),
-      bottomNavigationBar: _confirmButton,
+      body: Stack(
+        children: [
+          enterPhone(),
+          Positioned(bottom: 20, child: confirmButton()),
+        ],
+      ),
     );
   }
 
-  Widget get _enterPhone {
-    final size = MediaQuery.of(context).size;
-
+  Widget enterPhone() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        Padding(
           padding: EdgeInsets.only(top: 75, left: 25),
           child: Text(
             'Ingresa el Código',
             style: Get.textTheme.headline4,
           ),
         ),
-        Container(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           child: Text(
             'Se envió un código por SMS',
@@ -49,65 +41,74 @@ class _ConfirmPhonePageState extends State<ConfirmPhonePage> {
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-          child: Text(
-            this.widget.phoneNumber?.phoneNumber ?? '+591 78506823',
-            // style: Get.textTheme.bodyText1,
-          ),
+          child: Text(controller.international.value,
+              style: Get.textTheme.bodyText1),
         ),
-        Container(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           child: InkWell(
             child: Text(
               'Editar Número de Celular',
               style: Get.textTheme.headline6,
             ),
-            onTap: () => print('Back'),
+            onTap: () => Get.back(),
           ),
         ),
         Container(
+          margin: EdgeInsets.only(right: Get.width / 3),
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          child: BlockInput(
-            controller: BlockInputController(4),
-            keyboardType: BlockInputKeyboardType.number,
-            axisAlignment: MainAxisAlignment.spaceAround,
-            style: BlockInputStyle(
-              width: size.width / 6,
-              textStyle: Get.textTheme.headline3,
-              backgroundColor: Colors.black12,
+          child: TextFormField(
+            keyboardType: TextInputType.number,
+            initialValue: controller.smsCode.value,
+            style: Get.textTheme.bodyText2,
+            decoration: InputDecoration(
+              hintText: 'eg 123456',
+              hintStyle: Get.textTheme.subtitle2,
+              icon: Icon(Icons.sms),
+              contentPadding: EdgeInsets.all(5),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.grey),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Color(0xff80AF08)),
               ),
             ),
+            onChanged: (value) => print(controller.smsCode.value = value),
+            validator: (val) {
+              if (int.tryParse(val) == null) {
+                return 'Valor no válido';
+              }
+
+              return val.length != 6 ? '6 digitos requerido' : null;
+            },
           ),
         ),
       ],
     );
   }
 
-  Widget get _confirmButton {
-    final size = MediaQuery.of(context).size;
+  Widget confirmButton() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width / 7, vertical: 30),
+      padding: EdgeInsets.symmetric(horizontal: Get.width / 7, vertical: 30),
       child: MaterialButton(
         padding: EdgeInsets.symmetric(vertical: 10),
-        color: Color(0xff709e07),
+        minWidth: Get.width / 1.5,
+        color: Get.theme.primaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),
-        child: Text(
-          'CONTINUAR',
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        onPressed: () => null,
+        child: Text('CONTINUAR', style: Get.textTheme.headline2),
+        onPressed: () {
+          if (controller.smsCode.value.length != 6) return;
+          if (int.tryParse(controller.smsCode.value) == null) return;
+
+          FirebaseAuth.instance
+              .signInWithCredential(
+                PhoneAuthProvider.credential(
+                  smsCode: controller.smsCode.value,
+                  verificationId: controller.verificationId.value,
+                ),
+              )
+              .then((_) async => await Get.toNamed(Routes.home.toString()))
+              .catchError((error) => print(error));
+        },
       ),
     );
   }

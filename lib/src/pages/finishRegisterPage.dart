@@ -1,17 +1,16 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+import 'package:app/src/services/getImage.dart';
+
 import 'package:app/src/widgets/forms.dart';
 import 'package:app/src/widgets/background.dart';
+import 'package:image_picker/image_picker.dart';
 
-class FinishRegisterPage extends StatefulWidget {
-  FinishRegisterPage({Key key}) : super(key: key);
+class FinishRegisterPage extends StatelessWidget {
+  final formkey = GlobalKey<FormState>();
+  final imgController = Get.put(GetImageController());
 
-  @override
-  _FinishRegisterPageState createState() => _FinishRegisterPageState();
-}
-
-class _FinishRegisterPageState extends State<FinishRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,19 +18,50 @@ class _FinishRegisterPageState extends State<FinishRegisterPage> {
         alignment: Alignment.center,
         children: [
           Background(drawUpDown: false, div: 8),
-          _bodyForm,
+          SingleChildScrollView(
+            child: bodyForm(),
+          ),
         ],
       ),
     );
   }
 
-  Widget get _bodyForm {
+  Widget buildImg() {
+    return Obx(() {
+      if (this.imgController.image.value?.existsSync() ?? false) {
+        return InkWell(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.file(
+              imgController.image.value,
+              fit: BoxFit.contain,
+            ),
+          ),
+          onTap: () => imgController.pickImage(ImageSource.gallery),
+          onLongPress: () => imgController.pickImage(ImageSource.camera),
+        );
+      }
+      return InkWell(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.photo_camera_outlined, color: Colors.black38, size: 40),
+            Text('Sube tu foto', style: Get.textTheme.bodyText1),
+          ],
+        ),
+        onTap: () => imgController.pickImage(ImageSource.gallery),
+        onLongPress: () => imgController.pickImage(ImageSource.camera),
+      );
+    });
+  }
+
+  Widget bodyForm() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 100, bottom: 30),
+          padding: EdgeInsets.only(top: 0, bottom: 30),
           child: Text('Ya Estamos finalizando', style: Get.textTheme.headline5),
         ),
         Padding(
@@ -46,41 +76,9 @@ class _FinishRegisterPageState extends State<FinishRegisterPage> {
             color: Color(0xffEEEEEE),
             shape: BoxShape.circle,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.photo_camera_outlined,
-                color: Colors.black38,
-                size: 40,
-              ),
-              Text('Sube tu foto', style: Get.textTheme.bodyText1),
-            ],
-          ),
+          child: buildImg(),
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Color(0xffEEEEEE),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: FinishForm(),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 20),
-          child: MaterialButton(
-            color: Color(0xff222222),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Text(
-              'Finalizar Registro',
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () => print('HI!!'),
-          ),
-        ),
+        FinishForm(),
       ],
     );
   }

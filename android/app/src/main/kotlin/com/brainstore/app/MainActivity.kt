@@ -1,4 +1,4 @@
-package com.brainstore.gosafe
+package com.brainstore.app
 
 import io.flutter.embedding.android.FlutterActivity
 

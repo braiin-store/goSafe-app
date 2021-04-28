@@ -1,14 +1,13 @@
 import 'package:http/http.dart' as http;
-import 'package:get_storage/get_storage.dart';
 
 import 'package:app/src/config.dart' as env;
+
+import 'package:app/src/config.dart';
 import 'package:app/src/models/user.dart';
 
 class AuthApi {
   static final AuthApi _instance = AuthApi();
   static AuthApi get instance => _instance;
-
-  final box = GetStorage();
 
   Future<bool> signUp(User user) async {
     try {
@@ -41,7 +40,7 @@ class AuthApi {
       if (res.statusCode != 500) {
         user = User.fromRawJson(res.body);
         await box.write('user', user.toRawJson());
-        
+
         return true;
       }
     } catch (e) {

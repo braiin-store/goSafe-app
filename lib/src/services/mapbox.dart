@@ -38,6 +38,7 @@ class Mapbox {
     } catch (e) {
       print(e);
     }
+    
     return [];
   }
 
