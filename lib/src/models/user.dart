@@ -37,8 +37,8 @@ class User {
       token     : json["token"],
       password  : json["password"],
       roleId    : json["RoleId"],
-      contacts  : json['contacts'].map((e) => Contact.fromRawJson(e)).toList(), 
-      addresses : json['contacts'].map((e) => Address.fromRawJson(e)).toList(), 
+      contacts  : json['contacts']?.map((e) => Contact.fromRawJson(e))?.toList() ?? [], 
+      addresses : json['addresses']?.map((e) => Address.fromRawJson(e))?.toList() ?? [],
     );
   }
 

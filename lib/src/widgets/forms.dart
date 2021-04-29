@@ -208,12 +208,16 @@ _tryLogin(GlobalKey<FormState> key, User user) async {
     key.currentState.save();
 
     final auth = user.name == null
-        ? AuthApi.instance.signIn(user)
-        : AuthApi.instance.signUp(user);
+        ? await AuthApi.instance.signIn(user)
+        : await AuthApi.instance.signUp(user);
 
-    await Get.toNamed(
-      await auth ? Routes.home.toString() : Routes.phone.toString(),
-    );
+    if (auth ?? false) {
+      await Get.toNamed(Routes.home.toString());
+    }
+
+    if (auth == null) {
+      await Get.toNamed(Routes.phone.toString());
+    }
   }
 }
 

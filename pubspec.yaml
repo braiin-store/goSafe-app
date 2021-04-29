@@ -34,6 +34,7 @@ dependencies:
   modal_bottom_sheet: ^2.0.0
   international_phone_input: ^1.0.4
   # firebase dependencies
+  firebase_core: ^0.7.0
   firebase_auth: ^0.20.1
   firebase_database: ^6.0.0
   # maps dependencies

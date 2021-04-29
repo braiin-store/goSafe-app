@@ -6,7 +6,7 @@ import 'package:app/src/config.dart';
 class GetPhoneController extends GetxController {
   final codeSent = false.obs;
 
-  final smsCode = '123456'.obs;
+  final smsCode = ''.obs;
   final verificationId = ''.obs;
 
   final isoCode = 'BO'.obs;
@@ -27,11 +27,11 @@ class GetPhoneController extends GetxController {
     };
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-      codeSent: smsSent,
-      verificationFailed: failed,
-      verificationCompleted: verified,
-      phoneNumber: international.value,
-      codeAutoRetrievalTimeout: autoTimeout,
+        codeSent: smsSent,
+        verificationFailed: failed,
+        verificationCompleted: verified,
+        phoneNumber: international.value,
+        codeAutoRetrievalTimeout: autoTimeout,
     );
   }
 
