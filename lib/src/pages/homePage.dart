@@ -54,7 +54,50 @@ class _HomePageState extends State<HomePage> {
             child: cornerButton(
               tag: 'alert',
               iconData: Icons.taxi_alert,
-              onPressed: () => print('ALERT'),
+              onPressed: () async {
+                await Get.defaultDialog<void>(
+                  title: 'Está en Peligro?',
+                  titleStyle: Get.textTheme.overline,
+                  content: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      'Por Favor Mantenga presionado  Si!!',
+                      style: Get.textTheme.headline6,
+                    ),
+                  ),
+                  confirm: MaterialButton(
+                    child: Text(
+                      'Si!!',
+                      strutStyle:
+                          StrutStyle.fromTextStyle(Get.textTheme.button),
+                      style: TextStyle(color: Get.theme.primaryColor),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      side:
+                          BorderSide(width: 1.5, color: Get.theme.primaryColor),
+                    ),
+                    onPressed: () {
+                      // TODO share localization to server
+                      print('EMIT LOCATION');
+                      Get.back();
+                    },
+                  ),
+                  cancel: MaterialButton(
+                    child: Text(
+                      'NO',
+                      strutStyle:
+                          StrutStyle.fromTextStyle(Get.textTheme.button),
+                      style: TextStyle(color: Colors.redAccent),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(width: 1.5, color: Colors.redAccent),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    onPressed: () => Get.back(),
+                  ),
+                );
+              },
             ),
           ),
           Positioned(

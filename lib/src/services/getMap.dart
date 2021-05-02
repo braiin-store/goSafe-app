@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -21,6 +22,10 @@ class GetMapController extends GetxController {
   GetMapController() {
     location.requestPermission().then((value) => null);
     getTravel.addListener(() async {
+      await location.changeSettings(
+        accuracy: LocationAccuracy.POWERSAVE,
+      );
+
       if (getTravel.travel.source != null) {
         markers.add(Marker(
           markerId: MarkerId('source'),

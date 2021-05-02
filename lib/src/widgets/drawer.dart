@@ -1,5 +1,8 @@
+import 'package:app/src/models/user.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+
+import '../config.dart';
 
 const listTiles = [
   ['Ciudad', Icons.add_location_outlined],
@@ -11,9 +14,11 @@ const listTiles = [
 ];
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({Key key}) : super(key: key);
+  CustomDrawer({Key key}) : super(key: key);
 
-  List get _buildList {
+  List buildList() {
+    final user = User.fromRawJson(box.read<String>('user'));
+
     final list = <Widget>[
       DrawerHeader(
         child: Row(
@@ -24,14 +29,19 @@ class CustomDrawer extends StatelessWidget {
               width: Get.width / 4,
               height: Get.width / 4,
               decoration: BoxDecoration(
-                color: Color(0xff80AF08),
-                borderRadius: BorderRadius.circular(100),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'https://pbs.twimg.com/profile_images/1189365653100212224/IUhyMElL_400x400.jpg',
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Username', style: Get.textTheme.headline3),
+                Text(user.name, style: Get.textTheme.headline3),
                 InkWell(
                   child: Text('Ver'),
                   onTap: () => print('User Profile'),
@@ -65,7 +75,7 @@ class CustomDrawer extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Color(0xff80AF08),
+                  color: Get.theme.primaryColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(25),
                     bottomLeft: Radius.circular(25),
@@ -90,7 +100,7 @@ class CustomDrawer extends StatelessWidget {
         elevation: 0,
         child: ListView(
           padding: EdgeInsets.zero,
-          children: _buildList,
+          children: buildList(),
         ),
       ),
     );
