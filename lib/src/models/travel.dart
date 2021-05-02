@@ -10,6 +10,8 @@ class Travel {
     this.dateTime,
     this.clientId,
     this.driverid,
+    this.sourceName,
+    this.destinyName,
   });
 
   int id;
@@ -18,9 +20,11 @@ class Travel {
   int dateTime;
 
   double amount;
-
   LatLng source;
   LatLng destiny;
+
+  String sourceName;
+  String destinyName;
 
   String toRawJson() => json.encode(toJson());
   factory Travel.fromRawJson(String str) => Travel.fromJson(json.decode(str));
@@ -34,6 +38,8 @@ class Travel {
       amount: json["amount"].toDouble(),
       source: LatLng.fromJson(json['source']),
       destiny: LatLng.fromJson(json['destiny']),
+      sourceName: json['sourceName'],
+      destinyName: json['destinyName'],
     );
   }
 
@@ -46,6 +52,8 @@ class Travel {
       "driverid": driverid,
       "source": source?.toJson(),
       "destiny": destiny?.toJson(),
+      "sourceName": sourceName,
+      "destinyName": destinyName,
     };
   }
 }

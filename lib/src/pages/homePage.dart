@@ -19,8 +19,8 @@ class _HomePageState extends State<HomePage> {
   final controller = Get.put(GetTravelController());
   final mapController = Get.put(GetMapController());
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool showMarker = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -58,14 +58,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-            bottom: 45,
             right: 10,
+            bottom: 45,
             child: cornerButton(
               tag: 'location',
               iconData: Icons.location_searching,
-              onPressed: () async {
-                await this.mapController.getLocationCamera();
-              },
+              onPressed: () async => await mapController.getLocationCamera(),
             ),
           ),
           RequestBottomSheet(),
@@ -77,7 +75,7 @@ class _HomePageState extends State<HomePage> {
   Widget cornerButton({String tag, IconData iconData, Function onPressed}) {
     return FloatingActionButton(
       heroTag: tag ?? 'drawer',
-      child: Icon(iconData, color: Color(0xff80AF08)),
+      child: Icon(iconData, color: Get.theme.primaryColor),
       backgroundColor: Colors.white,
       onPressed: onPressed ?? () => _scaffoldKey.currentState.openDrawer(),
     );

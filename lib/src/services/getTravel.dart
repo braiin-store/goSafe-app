@@ -1,10 +1,15 @@
 import 'package:get/get.dart';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'package:app/src/models/user.dart';
 import 'package:app/src/models/travel.dart';
+
 import 'package:app/src/services/here.dart';
 
 enum MarkerType { source, destiny }
+enum VehicleType { motorcycle, car, other }
 
 class GetTravelController extends GetxController {
   Travel _travel;
@@ -13,6 +18,8 @@ class GetTravelController extends GetxController {
   String _destinyName;
 
   MarkerType markerType;
+  VehicleType vehicleType = VehicleType.car;
+
   LatLng lastMarkerPosition;
 
   bool showMarker = false;
@@ -27,6 +34,7 @@ class GetTravelController extends GetxController {
     markerType = null;
     _sourceName = null;
     _destinyName = null;
+
     update();
   }
 
@@ -74,7 +82,11 @@ class GetTravelController extends GetxController {
     String sourceName,
     String destinyName,
     MarkerType markerType,
+    VehicleType vehicleType,
   }) {
+    if (vehicleType != null) {
+      this.vehicleType = vehicleType;
+    }
     if (amount != null) {
       this._travel.amount = amount;
     }
@@ -95,5 +107,19 @@ class GetTravelController extends GetxController {
       this._destinyName = destinyName;
     }
     update();
+  }
+
+  requestTravel(User user) {
+    if (travel.amount == null) return;
+    if (sourceName.isEmpty || destinyName.isEmpty) return;
+
+    _travel.clientId = user.id;
+    _travel.sourceName = sourceName;
+    _travel.destinyName = destinyName;
+
+    FirebaseDatabase.instance
+        .reference()
+        .child('clients/${user.id}')
+        .update(travel.toJson());
   }
 }

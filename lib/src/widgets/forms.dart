@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../config.dart';
 import '../apis/authApi.dart';
+
 import 'package:app/src/models/user.dart';
 import 'package:app/src/services/getImage.dart';
 
@@ -206,7 +207,7 @@ class SignUpForm extends StatelessWidget {
 _tryLogin(GlobalKey<FormState> key, User user) async {
   if (key.currentState.validate()) {
     key.currentState.save();
-
+    
     final auth = user.name == null
         ? await AuthApi.instance.signIn(user)
         : await AuthApi.instance.signUp(user);

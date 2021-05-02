@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../config.dart';
-
 import 'package:app/src/services/getPhone.dart';
 
 class ConfirmPhonePage extends GetView<GetPhoneController> {
@@ -100,13 +99,11 @@ class ConfirmPhonePage extends GetView<GetPhoneController> {
           if (int.tryParse(controller.smsCode.value) == null) return;
 
           FirebaseAuth.instance
-              .signInWithCredential(
-                PhoneAuthProvider.credential(
-                  smsCode: controller.smsCode.value,
-                  verificationId: controller.verificationId.value,
-                ),
-              )
-              .then((_) async => await Get.toNamed(Routes.home.toString()))
+              .signInWithCredential(PhoneAuthProvider.credential(
+                smsCode: controller.smsCode.value,
+                verificationId: controller.verificationId.value,
+              ))
+              .then((_) async => await Get.toNamed(Routes.finish.toString()))
               .catchError((error) => print(error));
         },
       ),

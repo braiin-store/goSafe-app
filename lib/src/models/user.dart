@@ -1,4 +1,6 @@
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 class User {
   User({
     this.id,
@@ -30,6 +32,8 @@ class User {
   String toRawJson() => json.encode(toJson());
 
   factory User.fromJson(Map<String, dynamic> json) {
+    List _contacts = json['contacts'] ?? [];
+    List _addresses = json['addresses'] ?? [];
     return User(
       id        : json["id"],
       name      : json["name"],
@@ -37,8 +41,8 @@ class User {
       token     : json["token"],
       password  : json["password"],
       roleId    : json["RoleId"],
-      contacts  : json['contacts']?.map((e) => Contact.fromRawJson(e))?.toList() ?? [], 
-      addresses : json['addresses']?.map((e) => Address.fromRawJson(e))?.toList() ?? [],
+      contacts  : _contacts.map((e) => Contact.fromRawJson(e)).toList(),
+      addresses : _addresses.map((e) => Address.fromRawJson(e)).toList(),
     );
   }
 
@@ -50,7 +54,7 @@ class User {
       "token"     : token,
       "password"  : password,
       "RoleId"    : roleId,
-      "contacts"  : List.from(contacts.map((e) => e.toJson())),
+      "contacts"  : List.from(contacts.map((e) => e.toJson()),),
       "addresses" : List.from(addresses.map((e) => e.toJson())),
     };
   }

@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
       ),
       
       getPages: pages,
-      initialRoute: Routes.login.toString(),
+      initialRoute: Routes.home.toString(),
     );
   }
 }
