@@ -40,6 +40,9 @@ PODS:
   - Flutter (1.0.0)
   - flutter_custom_dialog (0.0.1):
     - Flutter
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
   - google_maps_flutter (0.0.1):
     - Flutter
     - GoogleMaps (< 3.10)
@@ -85,6 +88,9 @@ PODS:
   - path_provider (0.0.1):
     - Flutter
   - PromisesObjC (1.2.12)
+  - sqflite (0.0.2):
+    - Flutter
+    - FMDB (>= 2.7.5)
 
 DEPENDENCIES:
   - block_input (from `.symlinks/plugins/block_input/ios`)
@@ -98,6 +104,7 @@ DEPENDENCIES:
   - libphonenumber (from `.symlinks/plugins/libphonenumber/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
 
 SPEC REPOS:
   trunk:
@@ -106,6 +113,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseDatabase
+    - FMDB
     - GoogleDataTransport
     - GoogleMaps
     - GoogleUtilities
@@ -138,6 +146,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/location/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
 
 SPEC CHECKSUMS:
   block_input: c71c429c311628db2049bb7f430d915e821a7aae
@@ -151,6 +161,7 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 22199cb121a527ae59df646d61426fbb12f5627a
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   google_maps_flutter: c7f9c73576de1fbe152a227bfd6e6c4ae8088619
   GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
@@ -164,6 +175,7 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
 
 PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea
 

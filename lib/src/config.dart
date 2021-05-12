@@ -8,6 +8,11 @@ import 'package:app/src/pages/enterPhonePage.dart';
 import 'package:app/src/pages/confirmPhonePage.dart';
 import 'package:app/src/pages/finishRegisterPage.dart';
 
+import 'package:app/src/pages/drawer/about.dart';
+import 'package:app/src/pages/drawer/myTrips.dart';
+import 'package:app/src/pages/drawer/payment.dart';
+import 'package:app/src/pages/drawer/support.dart';
+
 class API {
   // VIRTUAL ANDROID http://10.0.2.2:8000/api
   // VIRTUAL IOS     http://localhost:8000/api
@@ -27,6 +32,12 @@ enum Routes {
   login,
   finish,
   confirm,
+
+  // drawer-routes
+  about,
+  payment,
+  support,
+  mytrips,
 }
 
 final pages = [
@@ -35,4 +46,10 @@ final pages = [
   GetPage(name: Routes.phone.toString(),    page: () => EnterPhonePage()),
   GetPage(name: Routes.confirm.toString(),  page: () => ConfirmPhonePage()),
   GetPage(name: Routes.finish.toString(),   page: () => FinishRegisterPage()),
+
+  // drawer routes
+  GetPage(name: Routes.about.toString(),    page: () => AboutPage()),
+  GetPage(name: Routes.payment.toString(),  page: () => PaymentPage()),
+  GetPage(name: Routes.support.toString(),  page: () => SupportPage()),
+  GetPage(name: Routes.mytrips.toString(),  page: () => MyTripsPage()),
 ];

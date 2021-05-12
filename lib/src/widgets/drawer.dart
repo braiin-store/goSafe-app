@@ -1,16 +1,16 @@
-import 'package:app/src/models/user.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:app/src/models/user.dart';
 
 import '../config.dart';
 
 const listTiles = [
-  ['Ciudad', Icons.add_location_outlined],
-  ['Seguridad', Icons.security_outlined],
-  ['Mis viajes', Icons.access_time_outlined],
-  ['Soporte', Icons.chat_outlined],
-  ['Acerca de', Icons.info_outline],
-  ['Métodos de Pago', Icons.credit_card_outlined],
+  // ['Ciudad', Icons.add_location_outlined],
+  // ['Seguridad', Icons.security_outlined],
+  ['Mis viajes', Icons.access_time_outlined, Routes.mytrips],
+  ['Soporte', Icons.chat_outlined, Routes.support],
+  ['Acerca de', Icons.info_outline, Routes.about],
+  ['Métodos de Pago', Icons.credit_card_outlined, Routes.payment],
 ];
 
 class CustomDrawer extends StatelessWidget {
@@ -56,10 +56,9 @@ class CustomDrawer extends StatelessWidget {
     list.addAll(
       listTiles.map(
         (tile) => ListTile(
-          title: Text(tile.first, style: Get.textTheme.bodyText2),
-          leading: Icon(tile.last, color: Colors.black),
-          onTap: () => print(tile.first),
-        ),
+            title: Text(tile.first, style: Get.textTheme.bodyText2),
+            leading: Icon(tile[1], color: Colors.black),
+            onTap: () async => await Get.toNamed(tile.last.toString())),
       ),
     );
 
